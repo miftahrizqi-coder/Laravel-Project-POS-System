@@ -7,8 +7,12 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
+        "filament/actions": "*",
         "filament/forms": "*",
+        "filament/notifications": "*",
+        "filament/schemas": "*",
         "filament/tables": "*",
+        "filament/widgets": "*",
         "laravel/fortify": "^1.34",
         "laravel/framework": "^13.0",
         "laravel/tinker": "^3.0",
