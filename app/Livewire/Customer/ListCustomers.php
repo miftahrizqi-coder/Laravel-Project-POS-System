@@ -39,7 +39,9 @@ class ListCustomers extends Component implements HasActions, HasSchemas, HasTabl
                 //
             ])
             ->headerActions([
-                //
+                Action::make('create')
+                    ->label('Add New Customer')
+                    ->url(fn (): string => route('customer.create'))
             ])
             ->recordActions([
                 Action::make('delete')
@@ -50,7 +52,10 @@ class ListCustomers extends Component implements HasActions, HasSchemas, HasTabl
                         Notification::make()
                         ->title('Deleted successfully')
                         ->success()
-                    )
+                    ),
+
+                Action::make('edit')
+                ->url(fn (Customer $record): string => route('customer.edit', $record))
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

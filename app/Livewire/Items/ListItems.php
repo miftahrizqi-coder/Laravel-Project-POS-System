@@ -39,13 +39,19 @@ class ListItems extends Component implements HasActions, HasSchemas, HasTable
                 ->money('IDR')
                 ->sortable(),
                 TextColumn::make('status')
-                ->badge(),
+                ->badge()
+                ->color(fn(string $state): string => match ($state){
+                    'inactive' => 'danger',
+                    'active' => 'success'
+                }),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                //
+                Action::make('create')
+                    ->label('Add New Item')
+                    ->url(fn (): string => route('item.create'))
             ])
             ->recordActions([
                 Action::make('delete')
@@ -56,7 +62,10 @@ class ListItems extends Component implements HasActions, HasSchemas, HasTable
                         Notification::make()
                         ->title('Deleted successfully')
                         ->success()
-                    )
+                    ),
+
+                Action::make('edit')
+                    ->url(fn (Item $record): string => route('item.edit', $record))
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

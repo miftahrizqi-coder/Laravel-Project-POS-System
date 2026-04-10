@@ -31,7 +31,7 @@ class ListPaymentMethods extends Component implements HasActions, HasSchemas, Ha
             ->columns([
                 TextColumn::make('name')
                 ->sortable()
-                ->badge(),
+                ,
                 TextColumn::make('description')
                 ->limit(100),
             ])
@@ -39,7 +39,9 @@ class ListPaymentMethods extends Component implements HasActions, HasSchemas, Ha
                 //
             ])
             ->headerActions([
-                //
+                Action::make('create')
+                    ->label('Add New Payment')
+                    ->url(fn (): string => route('payment.create'))
             ])
             ->recordActions([
                 Action::make('delete')
@@ -50,7 +52,10 @@ class ListPaymentMethods extends Component implements HasActions, HasSchemas, Ha
                         Notification::make()
                         ->title('Deleted successfully')
                         ->success()
-                    )
+                    ),
+
+                Action::make('edit')
+                    ->url(fn (PaymentMethod $record): string => route('payment.edit', $record))
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

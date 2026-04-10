@@ -35,7 +35,12 @@ class ListInventories extends Component implements HasActions, HasSchemas, HasTa
                 TextColumn::make('quantity')
                 ->sortable()
                 ->alignCenter()
-                ->badge(),
+                ->badge()
+                ->color(fn(int $state): string => match (true){
+                    $state < 50 => 'danger',
+                    $state < 100 => 'warning',
+                    default => 'success'
+                }),
                 TextColumn::make('created_at')
                 ->Toggleable(isToggledHiddenByDefault:true),
             ])
@@ -43,7 +48,9 @@ class ListInventories extends Component implements HasActions, HasSchemas, HasTa
                 //
             ])
             ->headerActions([
-                //
+                Action::make('create')
+                    ->label('Add New Inventory')
+                    ->url(fn (): string => route('inventory.create'))
             ])
             ->recordActions([
                 Action::make('delete')
@@ -54,7 +61,10 @@ class ListInventories extends Component implements HasActions, HasSchemas, HasTa
                         Notification::make()
                         ->title('Deleted successfully')
                         ->success()
-                    )
+                    ),
+
+                Action::make('edit')
+                    ->url(fn (Inventory $record): string => route('inventory.edit', $record))
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

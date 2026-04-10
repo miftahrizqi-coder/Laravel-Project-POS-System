@@ -6,11 +6,12 @@
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
-        "php": "^8.3",
+        "php": "^8.4",
         "filament/actions": "*",
         "filament/forms": "*",
         "filament/notifications": "*",
         "filament/schemas": "*",
+        "filament/support": "*",
         "filament/tables": "*",
         "filament/widgets": "*",
         "laravel/fortify": "^1.34",

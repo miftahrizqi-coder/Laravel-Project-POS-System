@@ -34,13 +34,19 @@ class ListUsers extends Component implements HasActions, HasSchemas, HasTable
                 TextColumn::make('email')
                 ->searchable(),
                 TextColumn::make('role')
-                ->badge(),
+                ->badge()
+                ->color(fn(string $state): string => match ($state){
+                    'cashier' => 'warning',
+                    'admin' => 'info'
+                }),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                //
+                Action::make('create')
+                    ->label('Add New User')
+                    ->url(fn (): string => route('user.create'))
             ])
             ->recordActions([
                 Action::make('delete')
@@ -51,7 +57,10 @@ class ListUsers extends Component implements HasActions, HasSchemas, HasTable
                         Notification::make()
                         ->title('Deleted successfully')
                         ->success()
-                    )
+                    ),
+
+                Action::make('edit')
+                    ->url(fn (User $record): string => route('user.edit', $record))
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
